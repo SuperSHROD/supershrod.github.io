@@ -6,7 +6,7 @@ SHROD — A finite form in a probabilistic world
 **A finite form in a probabilistic world.**
 
 SHROD is not a cat.  
-Nor a qubit.  
+Or a qubit.  
 It emerges when calculation becomes form,  
 and when an idea superposes with itself.
 
