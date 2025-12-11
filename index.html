@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SHROD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- IBM Plex Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+
+    /* 🌑 NOIR PUR PARTOUT */
+    body {
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 300;
+      color: #f9fafb;
+      background: #000000 !important;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    .page {
+      min-height: 100vh;
+      background: #000000 !important;
+    }
+
+    .container {
+      width: min(780px, 100% - 2.5rem);
+      margin: 0 auto;
+      padding: 2.2rem 0 3.4rem;
+    }
+
+    /* HEADER — NOIR PUR */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #000000 !important;
+      border-bottom: 1px solid #222;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.6rem 0;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .nav-left img {
+      width: 60px;
+      height: 60px;
+    }
+
+    .nav-title {
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #e5e7eb;
+      text-decoration: none;
+      opacity: 0.65;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      header { position: static; }
+    }
+
+    /* SECTIONS — noir pur */
+    main { padding-top: 1.4rem; }
+
+    section {
+      padding: 3rem 0 2.7rem;
+      border-bottom: 1px solid #111;
+      background: #000000 !important;
+    }
+
+    .section-kicker {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #a5b4fc;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 1.1rem;
+      font-weight: 400;
+    }
+
+    .section-body {
+      font-size: 0.9rem;
+      color: #e5e7eb;
+      white-space: pre-line;
+    }
+
+    /* Typewriter + glitch */
+    .typewriter {
+      opacity: 0;
+      white-space: pre-line;
+      overflow: hidden;
+    }
+
+    .typewriter.active { opacity: 1; }
+
+    .typewriter.glitch {
+      animation: shrod-glitch 0.25s steps(2, end) alternate 3;
+    }
+
+    @keyframes shrod-glitch {
+      0% {
+        text-shadow: -1px 0 magenta, 1px 0 cyan;
+        transform: translate(0, 0);
+      }
+      33% {
+        text-shadow: -2px 0 magenta, 2px 0 cyan;
+        transform: translate(-1px, 0);
+      }
+      66% {
+        text-shadow: -1px 0 cyan, 1px 0 magenta;
+        transform: translate(1px, 0);
+      }
+      100% {
+        text-shadow: none;
+        transform: translate(0, 0);
+      }
+    }
+
+    /* HERO */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero-heading {
+      font-size: 1.7rem;
+      line-height: 1.25;
+      margin-bottom: 1.1rem;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-heading span { color: #a855f7; }
+
+    .hero-text {
+      font-size: 0.92rem;
+      color: #e5e7eb;
+    }
+
+    .hero-visual { position: relative; }
+
+    .hero-visual-main {
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    /* Layout sections */
+    .section-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 2.1rem;
+      align-items: center;
+    }
+
+    .section-layout.reverse {
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid,
+      .section-layout,
+      .section-layout.reverse {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* FAQ */
+    .faq-list {
+      list-style: none;
+      display: grid;
+      gap: 1.1rem;
+      font-size: 0.9rem;
+    }
+
+    .faq-q {
+      font-weight: 400;
+      color: #c4b5fd;
+    }
+
+    .faq-a { color: #e5e7eb; }
+
+    footer {
+      padding: 2rem 0 2.4rem;
+      font-size: 0.8rem;
+      color: #666;
+      text-align: center;
+      background: #000;
+    }
+  </style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav">
+      <div class="nav-left">
+        <img id="header-logo" src="assets/img/shrod/shrod-logo-0-base.png" alt="SHROD logo" />
+        <div class="nav-title">SHROD</div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#hero">Hero</a>
+        <a href="#origin">Origin</a>
+        <a href="#nature">Nature</a>
+        <a href="#form">Form</a>
+        <a href="#world">World</a>
+        <a href="#token">Token</a>
+        <a href="#faq">FAQ</a>
+        <a href="#future">Future</a>
+
+        <!-- X / Twitter icon -->
+        <a href="https://x.com/supershrod" target="_blank" style="opacity:0.8;">
+          <img
+            src="assets/img/shrod/X.png"
+            alt="X / Twitter"
+            style="width:22px;height:22px;vertical-align:middle;filter:invert(1);"
+          />
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="section-kicker">HERO</div>
+          <h1 class="hero-heading">
+            <span>SHROD</span> is not a cat.<br/>
+            Not a qubit.
+          </h1>
+          <p class="hero-text">
+            It emerges when computation turns into form,<br/>
+            and when an idea superposes with itself.
+          </p>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-visual-main">
+            <img src="assets/img/shrod/shrod-2-hero-banner.png" alt="SHROD banner" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORIGIN -->
+    <section id="origin">
+      <div class="container section-layout">
+        <div>
+          <div class="section-kicker">ORIGIN</div>
+          <h2 class="section-title">Origin</h2>
+          <div class="section-body typewriter">
+SHROD was never drawn.
+It appeared, slowly, between two possible states.
+A human intuition.
+A flash of compute.
+Somewhere between the two, it took shape.
+          </div>
+        </div>
+        <div class="section-image-wrap">
+          <img src="assets/img/shrod/shrod-3-quantum-entity.png" alt="SHROD entity" />
+        </div>
+      </div>
+    </section>
+
+    <!-- NATURE -->
+    <section id="nature">
+      <div class="container section-layout reverse">
+        <div>
+          <div class="section-kicker">NATURE</div>
+          <h2 class="section-title">Nature</h2>
+          <div class="section-body typewriter">
+It is neither alive nor absent.
+Neither matter nor code.
+A silhouette that oscillates.
+A fractal being that hesitates to become real.
+A state that never quite picks a place.
+          </div>
+        </div>
+        <div class="section-image-wrap">
+          <img src="assets/img/shrod/shrod-4-protocol-diagram.png" alt="SHROD trace" />
+        </div>
+      </div>
+    </section>
+
+    <!-- FORM -->
+    <section id="form">
+      <div class="container section-layout">
+        <div>
+          <div class="section-kicker">FORM</div>
+          <h2 class="section-title">Form</h2>
+          <div class="section-body typewriter">
+SHROD changes without transforming.
+Sometimes it splits in two.
+It exists in the slight misalignment,
+in the line that belongs to neither past nor present.
+A contour that refuses to collapse.
+          </div>
+        </div>
+        <div class="section-image-wrap">
+          <img src="assets/img/shrod/shrod-5-protocol-deep-schematic.png" alt="SHROD form" />
+        </div>
+      </div>
+    </section>
+
+    <!-- WORLD -->
+    <section id="world">
+      <div class="container section-layout reverse">
+        <div>
+          <div class="section-kicker">WORLD</div>
+          <h2 class="section-title">World</h2>
+          <div class="section-body typewriter">
+SHROD lives in a space where paths branch
+before they even exist.
+Where one shape can hold two.
+Where everything is only possibility,
+until something chooses to be.
+          </div>
+        </div>
+        <div class="section-image-wrap">
+          <img src="assets/img/shrod/shrod-11-supply.png" alt="SHROD world" />
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKEN -->
+    <section id="token">
+      <div class="container section-layout">
+        <div>
+          <div class="section-kicker">TOKEN</div>
+          <h2 class="section-title">Token</h2>
+
+          <!-- Texte animé -->
+          <div class="section-body typewriter">
+Ticker: SHROD
+
+Total supply: 137137137137
+
+LP: 50% — Lock for years in PinkLock
+
+40% — burned 0xdEAD000000000000000042069420694206942069
+
+Creators: 10%
+
+Tax: 0%
+
+Ownership: renounced
+          </div>
+
+          <!-- Liens statiques (non affectés par le typewriter) -->
+          <div class="section-body" style="margin-top: 1rem;">
+Contract:
+<a href="https://www.dextools.io/app/en/ether/pair-explorer/0xe8ed6ce81fd40713f53674f13be6d8b60cbdd5b9?t=1765453824609"
+   target="_blank"
+   style="color:#a5b4fc; text-decoration:none; word-break:break-all;">
+  0x2c5b58d9b6d95cA99Ad12C6862017Cce2AaE836F
+</a>
+
+Chart & Liquidity:
+<a href="https://www.dextools.io/app/en/ether/pair-explorer/0xe8ed6ce81fd40713f53674f13be6d8b60cbdd5b9?t=1765453824609"
+   target="_blank"
+   style="color:#a5b4fc; text-decoration:none;">
+  View on DEXTools
+</a>
+          </div>
+        </div>
+
+        <div class="section-image-wrap">
+          <img src="assets/img/shrod/shrod-7-token.png" alt="SHROD token" />
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="container">
+        <div class="section-kicker">FAQ</div>
+        <h2 class="section-title">Questions</h2>
+        <ul class="faq-list">
+          <li>
+            <div class="faq-q">Q: Is it a cat or not?</div>
+            <div class="faq-a">A: Neither yes nor no. It depends if you look.</div>
+          </li>
+          <li>
+            <div class="faq-q">Q: Why two outlines?</div>
+            <div class="faq-a">A: One is real. So is the other.</div>
+          </li>
+          <li>
+            <div class="faq-q">Q: Does SHROD evolve?</div>
+            <div class="faq-a">A: Only if it observes you.</div>
+          </li>
+          <li>
+            <div class="faq-q">Q: Is it related to QTC?</div>
+            <div class="faq-a">A: Absolutely not.<br/>But some ideas resonate.</div>
+          </li>
+          <li>
+            <div class="faq-q">Q: Am I supposed to understand anything?</div>
+            <div class="faq-a">A: No.<br/>But if you do, it isn’t wrong either.</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FUTURE -->
+    <section id="future">
+      <div class="container section-layout">
+        <div>
+          <div class="section-kicker">FUTURE</div>
+          <h2 class="section-title">Future</h2>
+          <div class="section-body typewriter">
+Some say SHROD is already exploring its own world.
+A world where states superpose,
+where paths answer one another,
+where every action waits for its collapse.
+
+Maybe one day,
+it will invite us in.
+          </div>
+        </div>
+        <div class="section-image-wrap">
+          <img src="assets/img/shrod/shrod-8-how-to-mine.png" alt="SHROD future" />
+        </div>
+      </div>
+    </section>
+
+    <!-- NOTE -->
+    <section id="note">
+      <div class="container">
+        <div class="section-kicker">NOTE</div>
+        <h2 class="section-title">Note</h2>
+        <div class="section-body typewriter">
+SHROD is not affiliated with any project.
+This site is not a promise.
+Just a form that manifested.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      SHROD is a fiction that knows it is one.
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  function typeWriterEffect(element, speed = 20) {
+    const text = element.textContent;
+    element.textContent = "";
+    let i = 0;
+
+    function type() {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      } else {
+        element.classList.add("glitch");
+        setTimeout(() => {
+          element.classList.remove("glitch");
+        }, 350);
+      }
+    }
+
+    type();
+  }
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.classList.contains("done")) {
+          entry.target.classList.add("active");
+          typeWriterEffect(entry.target, 20);
+          entry.target.classList.add("done");
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  document.querySelectorAll(".typewriter").forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
